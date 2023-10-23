@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getVuelos } from '../controllers/vuelo.js';
+import { getAllVuelos } from '../controllers/vuelo.js';
 
 const router = Router();
 
-router.get('/vuelos', getVuelos);
+router.get('/vuelos', getAllVuelos);
 
 export { router };

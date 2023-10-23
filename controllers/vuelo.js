@@ -1,8 +1,8 @@
 import Vuelo from '../models/vuelo.js';
 
-export const getVuelos = async (req, res) => {
+export const getAllVuelos = async (req, res) => {
   try {
-    const vuelos = await Vuelo.findAll();
+    const vuelos = await Vuelo.getAllVuelos();
     res.json(vuelos);
   } catch (err) {
     console.error(err);
