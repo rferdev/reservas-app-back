@@ -1,9 +1,9 @@
 import pg from 'pg';
+import { config } from 'dotenv';
+
+config();
 
 export const pool = new pg.Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'reservas',
-  password: 'Psuper1+',
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.SSL,
 });
