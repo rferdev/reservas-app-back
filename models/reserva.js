@@ -20,7 +20,14 @@ class Reserva {
 
     if (result.rows.length === 0) return false;
 
-    return result.rows[0];
+    return result;
+  }
+
+  static async deleteReserva(reservaID) {
+    const query = 'DELETE FROM Reservas WHERE ReservaID = $1';
+    const result = await pool.query(query, [reservaID]);
+
+    return result;
   }
 }
 

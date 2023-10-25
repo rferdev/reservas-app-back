@@ -42,3 +42,18 @@ export const getReserva = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const deleteReserva = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Reserva.deleteReserva(id);
+
+    if (result.rowCount === 0)
+      return res.status(404).json({ message: 'Reserva not found' });
+    return res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
