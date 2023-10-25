@@ -1,9 +1,14 @@
 import { Router } from 'express';
-import { createReserva, getReserva } from '../controllers/reserva.js';
+import {
+  createReserva,
+  getAllReservas,
+  getReserva,
+} from '../controllers/reserva.js';
 
 const router = Router();
 
-router.post('/reserva', createReserva);
-router.get('/reserva/:id', getReserva);
+router.post('/reservas', createReserva);
+router.get('/reservas/', getAllReservas);
+router.get('/reservas/:id', getReserva);
 
 export { router };

@@ -8,6 +8,12 @@ class Reserva {
     return result.rows[0];
   }
 
+  static async getAllReservas() {
+    const query = 'SELECT * FROM reservas ORDER BY ReservaID';
+    const result = await pool.query(query);
+    return result.rows;
+  }
+
   static async getReserva(reservaID) {
     const query = 'SELECT * FROM Reservas WHERE ReservaID = $1';
     const result = await pool.query(query, [reservaID]);
