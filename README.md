@@ -15,3 +15,5 @@ Pasos para reproducir una instalación local:
     port: 5432,
   }); (se deben cambiar los valores para que coincidan con los establecidos en el paso 1)
 6. Iniciar el servidor ejecutando el comando "node app.js"
+
+Modelo Entidad Relación: https://github.com/rferdev/shared/blob/main/app-reservas/app-reservas-mer.png
