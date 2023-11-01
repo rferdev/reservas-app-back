@@ -9,7 +9,7 @@ class Reserva {
   }
 
   static async getAllReservas() {
-    const query = 'SELECT * FROM reservas ORDER BY ReservaID';
+    const query = 'SELECT * FROM reservas ORDER BY FechaReserva DESC';
     const result = await pool.query(query);
     return result.rows;
   }
