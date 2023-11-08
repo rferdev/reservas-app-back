@@ -1,13 +1,13 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
 import { config } from 'dotenv';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
 import { router as vueloRoutes } from './routes/vuelo.js';
 import { router as reservaRoutes } from './routes/reserva.js';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 config();
 const allowedOrigins = [
   'http://localhost:4200',
