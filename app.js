@@ -1,5 +1,5 @@
 import express from 'express';
-import { config } from 'dotenv';
+import 'dotenv/config';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
@@ -8,7 +8,6 @@ import { router as reservaRoutes } from './routes/reserva.js';
 
 const app = express();
 const port = process.env.PORT;
-config();
 const allowedOrigins = [
   'http://localhost:4200',
   'https://reservas-app-front.onrender.com',

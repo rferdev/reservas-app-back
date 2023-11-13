@@ -12,7 +12,7 @@ export const createReserva = async (req, res) => {
     res.json(reserva);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Error al crear la reserva' });
   }
 };
 
@@ -22,7 +22,7 @@ export const getAllReservas = async (req, res) => {
     res.json(vuelos);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Error al obtener las reservas' });
   }
 };
 
@@ -39,7 +39,7 @@ export const getReserva = async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Error al obtener la reserva' });
   }
 };
 
@@ -54,6 +54,6 @@ export const deleteReserva = async (req, res) => {
     return res.sendStatus(204);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Error al borrar la reserva' });
   }
 };
