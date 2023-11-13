@@ -1,34 +1,35 @@
-import { pool } from '../db/config.js';
+import { PrismaClient } from '@prisma/client';
 
-class Reserva {
-  static async createReserva(vueloID) {
-    const query =
-      "INSERT INTO reserva (vuelo_id, pasajero_id, fecha_reserva, estado) VALUES ($1, 1, $2, 'Confirmada') RETURNING *";
-    const result = await pool.query(query, [vueloID, new Date()]);
-    return result.rows[0];
+const prisma = new PrismaClient();
+
+export default class ReservaModel {
+  async createReserva(vueloId) {
+    return prisma.reserva.create({
+      data: {
+        vueloId,
+        pasajeroId: 1,
+        estado: 'Confirmada',
+      },
+    });
   }
 
-  static async getAllReservas() {
-    const query = 'SELECT * FROM reserva ORDER BY fecha_reserva DESC';
-    const result = await pool.query(query);
-    return result.rows;
+  async getAllReservas() {
+    return prisma.reserva.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 
-  static async getReserva(reservaID) {
-    const query = 'SELECT * FROM reserva WHERE reserva_id = $1';
-    const result = await pool.query(query, [reservaID]);
-
-    if (result.rows.length === 0) return false;
-
-    return result.rows[0];
+  async getReserva(id) {
+    return prisma.reserva.findFirst({
+      where: { id },
+    });
   }
 
-  static async deleteReserva(reservaID) {
-    const query = 'DELETE FROM reserva WHERE reserva_id = $1';
-    const result = await pool.query(query, [reservaID]);
-
-    return result;
+  async deleteReserva(id) {
+    return prisma.reserva.delete({
+      where: { id },
+    });
   }
 }
-
-export default Reserva;

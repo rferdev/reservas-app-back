@@ -1,15 +1,17 @@
-import Reserva from '../models/reserva.js';
+import ReservaModel from '../models/reserva.js';
+
+const reservaModel = new ReservaModel();
 
 export const createReserva = async (req, res) => {
-  const body = req.body;
+  const { vueloId } = req.body;
 
-  if (!body.vueloID) {
+  if (!vueloId) {
     return res.status(400).json({ message: 'El ID del vuelo es obligatorio' });
   }
 
   try {
-    const reserva = await Reserva.createReserva(body.vueloID);
-    res.json(reserva);
+    const newReserva = await reservaModel.createReserva(vueloId);
+    res.json(newReserva);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error al crear la reserva' });
@@ -18,8 +20,8 @@ export const createReserva = async (req, res) => {
 
 export const getAllReservas = async (req, res) => {
   try {
-    const vuelos = await Reserva.getAllReservas();
-    res.json(vuelos);
+    const reservas = await reservaModel.getAllReservas();
+    res.json(reservas);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error al obtener las reservas' });
@@ -30,7 +32,7 @@ export const getReserva = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const reserva = await Reserva.getReserva(id);
+    const reserva = await reservaModel.getReserva(parseInt(id));
 
     if (!reserva) {
       res.status(404).json({ message: 'Reserva not found' });
@@ -47,13 +49,11 @@ export const deleteReserva = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await Reserva.deleteReserva(id);
+    await reservaModel.deleteReserva(parseInt(id));
 
-    if (result.rowCount === 0)
-      return res.status(404).json({ message: 'Reserva not found' });
-    return res.sendStatus(204);
+    res.sendStatus(204);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Error al borrar la reserva' });
+    res.status(500).json({ message: err.meta.cause });
   }
 };

@@ -1,11 +1,13 @@
-import { pool } from '../db/config.js';
+import { PrismaClient } from '@prisma/client';
 
-class Vuelo {
-  static async getAllVuelos() {
-    const query = 'SELECT * FROM vuelos ORDER BY salida DESC';
-    const result = await pool.query(query);
-    return result.rows;
+const prisma = new PrismaClient();
+
+export default class VueloModel {
+  async getAllVuelos() {
+    return prisma.vuelo.findMany({
+      orderBy: {
+        salida: 'desc',
+      },
+    });
   }
 }
-
-export default Vuelo;

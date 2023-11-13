@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pasajero {
+  id                   Int       @id @default(autoincrement())
+  nombre               String
+  apellido             String
+  numeroIdentificacion String
+  celular              String?
+  reservas             Reserva[]
+}
+
+model Reserva {
+  id         Int      @id @default(autoincrement())
+  vueloId    Int
+  pasajeroId Int
+  createdAt  DateTime @default(now())
+  estado     String
+  vuelo      Vuelo    @relation(fields: [vueloId], references: [id])
+  pasajero   Pasajero @relation(fields: [pasajeroId], references: [id])
+}
+
+model Vuelo {
+  id        Int       @id @default(autoincrement())
+  codigo    String
+  origen    String
+  destino   String
+  salida    DateTime
+  llegada   DateTime
+  capacidad Int
+  reservas  Reserva[]
+}
